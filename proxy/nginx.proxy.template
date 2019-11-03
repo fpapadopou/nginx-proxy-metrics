@@ -1,0 +1,15 @@
+# Configuration below is placed within the default `http` nginx config
+
+server {
+    # Configure reverse proxy.
+    location / {
+      proxy_pass $GREET_SCHEME://$GREET_HOST:$GREET_PORT/;
+
+      proxy_set_header Host $GREET_HOST;
+      # Headers below might be necessary for logging.
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header Referer $http_referer;
+      proxy_set_header X-Forwarded-For $remote_addr;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
