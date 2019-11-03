@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-metrics-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx-metrics
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx-metrics
+    spec:
+      containers:
+        - name: greet
+          image: fpapadopou/greet:latest
+          ports:
+            - containerPort: 80
+          args:
+            - "-host=0.0.0.0"
+            - "-port=80"
