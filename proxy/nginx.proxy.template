@@ -1,5 +1,12 @@
 # Configuration below is placed within the default `http` nginx config
 
+# Specify the format of access log for application performance monitoring (apm).
+# Note that the apm log format has to be the same as the one specified in prometheus-nginxlog-exporter config.
+log_format  apm  '"$request" $status $body_bytes_sent $request_time';
+
+access_log /mnt/logs/proxy.access.log apm;
+access_log /dev/stdout apm;
+
 server {
     # Configure reverse proxy.
     location / {
